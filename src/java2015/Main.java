@@ -9,7 +9,7 @@ package java2015;
  *
  * @author easterday
  */
-public class Java2015 {
+public class Main {
 
     /**
      * @param args the command line arguments
