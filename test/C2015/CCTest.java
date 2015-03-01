@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author easterday
  */
 public class CCTest {
-        enum X {C1,D1,H1,S1,
+        public enum X {C1,D1,H1,S1,
         C2,D2,H2,S2,
         C3,D3,H3,S3,
         C4,D4,H4,S4,
