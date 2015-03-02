@@ -27,34 +27,35 @@ public class Card {
 	public final CardSuit Suit ;
 	public final boolean IsRed;
 	public final int ID;
+       public final String _Str;
+       public final String Str;
 	public Card() {
 		ID=(-1);
 		Value=0;
 		Suit= CardSuit.ERR;
 		IsRed=false;
+              _Str="@@?";
+              Str="@@";
 	}
 	public Card(int inn) {
 		ID= inn;
 		Suit= PRIVATE_VALUES[ inn%4 ];
 		Value= (inn/4)+1;	
 		IsRed= CardSuit.IsRed(Suit);
+              if (ID>=0) {
+                  _Str=P[ID];
+                  if (Value>=10)
+                      Str=_Str;
+                  else
+                      Str=_Str.substring(1);
+              }
+              else {
+                  Str=_Str="@@?";
+              }              
 	}
-	public String toString() {
-		if (ID>=0)
-			return P[ID];
-		else
-			return "@@@";
-	}
-	public String toString(int d) {
-		if (ID>=0) {
-			if (Value>=1 && Value<=9) 
-				return P[ID].substring(1);
-			else
-				return P[ID];			
-		}else {
-			return "@@@";
-		}
-	}
+	public String toString() {return _Str;	}
+	public String toString(int d) { return Str;}
+       
     public static int GetValueFromString(String inn)
     {
         inn = inn.trim();
