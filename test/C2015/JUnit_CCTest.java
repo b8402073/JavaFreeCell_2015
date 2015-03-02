@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author easterday
  */
-public class CCTest {
+public class JUnit_CCTest {
         public enum X {C1,D1,H1,S1,
         C2,D2,H2,S2,
         C3,D3,H3,S3,
@@ -32,7 +32,7 @@ public class CCTest {
         C13,D13,H13,S13
         };
     
-    public CCTest() {
+    public JUnit_CCTest() {
        
     }
     

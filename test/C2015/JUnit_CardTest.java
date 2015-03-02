@@ -88,15 +88,11 @@ public class JUnit_CardTest {
     }
     @Test
     public void TestCardStaticFunction() {
-        //Int_To_ESuit
-        /*
-        assertEquals(CardSuit.CLUB, Card.Int_To_ESuit(0));
-        assertEquals(CardSuit.DIAMOND, Card.Int_To_ESuit(1));
-        assertEquals(CardSuit.HEART, Card.Int_To_ESuit(2));
-        assertEquals(CardSuit.SPADE, Card.Int_To_ESuit(3));
-        assertEquals(CardSuit.ERR, Card.Int_To_ESuit(-1));
-        assertEquals(CardSuit.ERR, Card.Int_To_ESuit(5));        
-        */
+        //Int_To_CardSuit        
+        assertEquals(CardSuit.CLUB, CardSuit.NormalSet[0]);
+        assertEquals(CardSuit.DIAMOND, CardSuit.NormalSet[1]);
+        assertEquals(CardSuit.HEART, CardSuit.NormalSet[2]);
+        assertEquals(CardSuit.SPADE, CardSuit.NormalSet[3]);        
         
         // Char_To_Suit
         assertEquals(CardSuit.CLUB, CardSuit.CharToSuit('C'));
