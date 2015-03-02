@@ -37,6 +37,7 @@ public enum CardSuit {
 	public String toString() {		return Letter;	}
 	public static CardSuit[] RedSet={ DIAMOND,HEART};
 	public static CardSuit[] BlackSet={CLUB,SPADE};
+       public static CardSuit[] NormalSet={CLUB,DIAMOND,HEART,SPADE};
 }
 /*
 public class CardSuit {

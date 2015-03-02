@@ -566,7 +566,7 @@ public class Problem {
     }
     public boolean IsValid() throws Exception{
     	Finisher F=Synthesize_Finisher();
-    	for (CardSuit it=CardSuit.CLUB; it!=CardSuit.ERR; it=it.Next()) {
+    	for (CardSuit it : CardSuit.NormalSet ) {
     		Card c=F.Top(it);
     		if (c!=null) {
     			for (int v=c.Value+1; v<=13; v++) {

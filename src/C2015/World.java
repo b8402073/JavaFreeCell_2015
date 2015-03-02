@@ -257,7 +257,7 @@ public class World {
 			if (AutoSafeUp())
 				ret=true;
 			for (int i=1; i<=13; i++) {
-				for (CardSuit it=CardSuit.CLUB; it!=CardSuit.ERR; it=it.Next()) {
+				for (CardSuit it : CardSuit.NormalSet) {
 					Card that=CardDeck.GetCard(i,it);
 					if (F.Needed(that)) {
 						if (this.FINISH(that))
@@ -269,7 +269,7 @@ public class World {
 		return ret;
 	}
 	public boolean isComplete(){
-		for (CardSuit it=CardSuit.CLUB; it!=CardSuit.ERR; it=it.Next()) {
+		for (CardSuit it : CardSuit.NormalSet) {
 			if (F.Need(it)!=null)
 				return false;
 		}
