@@ -7,12 +7,14 @@ public enum CardSuit {
 	SPADE(3,"S"),
 	ERR(4,"@");
 	public  final int ord;
-	public  final String Letter;
+	public  final String UpperCaseLetter;
+       public  final String LowerCaseLetter;
 	//private String Name;
 	CardSuit(final int num,final String inn) {
-		ord=num;  Letter=inn;
+		ord=num;  UpperCaseLetter=inn; 
+              LowerCaseLetter= inn.toLowerCase();
 	}	
-	public CardSuit Next() {
+	public CardSuit Next() {   //備而不用
 		switch(this.ord) {
 		case 0:  return DIAMOND;
 		case 1:  return HEART;
@@ -24,17 +26,18 @@ public enum CardSuit {
 	}
 	public static CardSuit  CharToSuit(char c) {
 		switch(c) {
-		case 'C':  return CLUB;
-		case 'D':  return DIAMOND;
-		case 'H':  return HEART;
-		case 'S':  return SPADE;
+		case 'C': case'c':  return CLUB;
+		case 'D': case 'd': return DIAMOND;
+		case 'H': case 'h': return HEART;
+		case 'S': case 's': return SPADE;
 		default:   return ERR;
 		}
 	}
 	public static boolean IsRed(CardSuit inn) {
 		return (inn==DIAMOND || inn==HEART);
 	}
-	public String toString() {		return Letter;	}
+	public String toString() {		return UpperCaseLetter;	}
+       public String toLowerCase() {        return LowerCaseLetter; }
 	public static CardSuit[] RedSet={ DIAMOND,HEART};
 	public static CardSuit[] BlackSet={CLUB,SPADE};
        public static CardSuit[] NormalSet={CLUB,DIAMOND,HEART,SPADE};

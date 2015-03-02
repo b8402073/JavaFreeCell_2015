@@ -89,23 +89,26 @@ public class JUnit_CardTest {
     @Test
     public void TestCardStaticFunction() {
         //Int_To_ESuit
-        assertEquals(Card.ESuit.CLUB, Card.Int_To_ESuit(0));
-        assertEquals(Card.ESuit.DIAMOND, Card.Int_To_ESuit(1));
-        assertEquals(Card.ESuit.HEART, Card.Int_To_ESuit(2));
-        assertEquals(Card.ESuit.SPADE, Card.Int_To_ESuit(3));
-        assertEquals(Card.ESuit.FAULT, Card.Int_To_ESuit(-1));
-        assertEquals(Card.ESuit.FAULT, Card.Int_To_ESuit(5));        
+        /*
+        assertEquals(CardSuit.CLUB, Card.Int_To_ESuit(0));
+        assertEquals(CardSuit.DIAMOND, Card.Int_To_ESuit(1));
+        assertEquals(CardSuit.HEART, Card.Int_To_ESuit(2));
+        assertEquals(CardSuit.SPADE, Card.Int_To_ESuit(3));
+        assertEquals(CardSuit.ERR, Card.Int_To_ESuit(-1));
+        assertEquals(CardSuit.ERR, Card.Int_To_ESuit(5));        
+        */
+        
         // Char_To_Suit
-        assertEquals(Card.ESuit.CLUB, Card.CharToSuit('C'));
-        assertEquals(Card.ESuit.CLUB, Card.CharToSuit('c'));
-        assertEquals(Card.ESuit.FAULT, Card.CharToSuit('A'));
-        assertEquals(Card.ESuit.FAULT, Card.CharToSuit('@'));
-        // Suit_To_char
-        assertEquals('c', Card.SuitToChar(Card.ESuit.CLUB));
-        assertEquals('d', Card.SuitToChar(Card.ESuit.DIAMOND));
-        assertEquals('h', Card.SuitToChar(Card.ESuit.HEART));
-        assertEquals('s', Card.SuitToChar(Card.ESuit.SPADE));
-        assertEquals('@', Card.SuitToChar(Card.ESuit.FAULT));
+        assertEquals(CardSuit.CLUB, CardSuit.CharToSuit('C'));
+        assertEquals(CardSuit.CLUB, CardSuit.CharToSuit('c'));
+        assertEquals(CardSuit.ERR, CardSuit.CharToSuit('A'));
+        assertEquals(CardSuit.ERR, CardSuit.CharToSuit('@'));
+        // Suit_To_LowerCase        
+        assertEquals("c", CardSuit.CLUB.toLowerCase());
+        assertEquals("d", CardSuit.DIAMOND.toLowerCase());
+        assertEquals("h", CardSuit.HEART.toLowerCase());
+        assertEquals("s",CardSuit.SPADE.toLowerCase());
+        assertEquals("@",CardSuit.ERR.toLowerCase());
         //GetValueFromString
         assertEquals(11,Card.GetValueFromString("11C"));
         assertEquals(3,Card.GetValueFromString("3H"));
@@ -113,14 +116,14 @@ public class JUnit_CardTest {
         assertEquals(-1,Card.GetValueFromString("18C"));
         assertEquals(-1,Card.GetValueFromString("18A"));
         //GetSuitFromString
-        assertEquals(Card.ESuit.CLUB,Card.GetSuitFromString("11C"));
-        assertEquals(Card.ESuit.HEART,Card.GetSuitFromString("3H"));
-        assertEquals(Card.ESuit.FAULT,Card.GetSuitFromString("11A"));
-        assertEquals(Card.ESuit.CLUB,Card.GetSuitFromString("18C"));
-        assertEquals(Card.ESuit.FAULT,Card.GetSuitFromString("18A"));
+        assertEquals(CardSuit.CLUB,Card.GetSuitFromString("11C"));
+        assertEquals(CardSuit.HEART,Card.GetSuitFromString("3H"));
+        assertEquals(CardSuit.ERR,Card.GetSuitFromString("11A"));
+        assertEquals(CardSuit.CLUB,Card.GetSuitFromString("18C"));
+        assertEquals(CardSuit.ERR,Card.GetSuitFromString("18A"));
         //Equals
-        Card H7=new Card(24+Card.ESuit.HEART.ordinal());
-        Card that=CardDeck.GetCard(7,Card.ESuit.HEART);        
+        Card H7=new Card(24+CardSuit.HEART.ordinal());
+        Card that=CardDeck.GetCard(7,CardSuit.HEART);        
         assertEquals(true, that.Equals(H7));
         assertEquals(true, H7.Equals(that));
         assertEquals(false,CardDeck.GetCard("8C").Equals(H7));
@@ -141,12 +144,12 @@ public class JUnit_CardTest {
         //GetCard(inn)
         assertEquals(null,CardDeck.GetCard(-1));
         assertEquals(null,CardDeck.GetCard(52));
-        assertEquals(CardDeck.GetCard(0), CardDeck.GetCard(1,Card.ESuit.CLUB));
-        assertEquals(CardDeck.GetCard(51), CardDeck.GetCard(13,Card.ESuit.SPADE));
+        assertEquals(CardDeck.GetCard(0), CardDeck.GetCard(1,CardSuit.CLUB));
+        assertEquals(CardDeck.GetCard(51), CardDeck.GetCard(13,CardSuit.SPADE));
         for (int i=0; i<52; i++) {
             Card that=CardDeck.GetCard(i);
-            assertEquals(CardDeck.GetCard(i)==CardDeck.GetCard(that.str), true);
-            assertEquals(CardDeck.GetCard(i)==CardDeck.GetCard(that._str),true);
+            assertEquals(CardDeck.GetCard(i)==CardDeck.GetCard(that.Str), true);
+            assertEquals(CardDeck.GetCard(i)==CardDeck.GetCard(that._Str),true);
         }                
     }    
 }

@@ -101,4 +101,14 @@ public class Card {
     	}
     	return false;
     }
+    public static boolean isCard(String inn) {
+       if (inn!=null) {
+            int val= Card.GetValueFromString(inn);
+            CardSuit s=Card.GetSuitFromString(inn);
+            if (val>=1 && val<=13 && s!=CardSuit.ERR)
+                return true;
+       }
+       return false;
+    }
+
 }
