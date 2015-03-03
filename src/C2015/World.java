@@ -1,7 +1,7 @@
 package C2015;
 
 import java.util.Vector;
-
+import java.util.StringTokenizer;
 public class World {
 	public Problem P;
 	public Finisher F;
@@ -55,17 +55,17 @@ public class World {
 		}
 		return true;
 	}
-	private static Problem BeforeChange=null;
-	private static Vector<Integer> bfChangeHistory=null;
-	private void ReserveWorld() {
+	protected static Problem BeforeChange=null;
+	protected static Vector<Integer> bfChangeHistory=null;
+	protected void ReserveWorld() {
 		BeforeChange=P.copy();
 		bfChangeHistory=realloc_History();		
 	}
-	private void ResumeWorld() {
+	protected void ResumeWorld() {
 		P=BeforeChange;
 		History=bfChangeHistory;
 	}
-	public void ResumeWorld(Problem PP,Vector<Integer> HH) {
+	protected void ResumeWorld(Problem PP,Vector<Integer> HH) {
 		P=PP; History=HH;
 	}
 	public boolean MOVELINE(int srcLine,int dstLine) {
@@ -243,7 +243,9 @@ public class World {
 				if (hand!=null && hand.Suit!=CardSuit.ERR) {
 					if (F.Needed(hand)) {
 						if (F.SafeCardUp(hand)) {
-							flag=true; ret=true;
+                                                 if (FINISH(hand)) {
+                                                    flag=true; ret=true;
+                                                 }
 						}
 					}
 				}
@@ -405,9 +407,10 @@ public class World {
 	}
 	public static Vector<Card> ParseString(String inn) {
 		Vector<Card> ret=new Vector<Card>();
-		String[] split=inn.split(",#");		
-		for (String s: split) {
-			if (s.length()>0)
+              StringTokenizer Tok=new StringTokenizer(inn,",#");              
+		while(Tok.hasMoreTokens()) {
+                  String s= Tok.nextToken();
+                    if (Card.isCard(s.trim()))
 				ret.add(CardDeck.GetCard(s));
 			else
 				break;

@@ -157,7 +157,7 @@ public class Problem {
 		NowMaxPos=new Byte[8];
 		for (int i=0; i<8; i++) {
 			int j;
-			for (j=0; i<21; j++) {
+			for (j=0; j<21; j++) {
 				cardarr[i][j]=inn1[i][j];
 			}
 			while(j<21) {

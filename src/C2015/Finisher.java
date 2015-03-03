@@ -134,7 +134,7 @@ public class Finisher {
 					return false;
 				
 				if (arr[CardSuit.DIAMOND.ord].Value>= inn.Value-1 &&
-					arr[CardSuit.SPADE.ord].Value>= inn.Value-1)
+					arr[CardSuit.HEART.ord].Value>= inn.Value-1)
 					return true;
 				return false;				
 			}
