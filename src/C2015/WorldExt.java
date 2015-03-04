@@ -89,6 +89,75 @@ public class WorldExt extends World{
         }
         return false;
     }
-    public Vector<WorldExt> makeChild(int Level)
+    public Vector<WorldExt> makeChild(int Level) {
+        return makeChild(Level,120,null);
+    }
+    public Vector<WorldExt> makeChild(int Level,int HiLevel,String Prefix) {
+        Child=new Vector<WorldExt>();
+        if (!makeChild0(Level,HiLevel)) {
+            if (!makeChild1(Level,HiLevel)) {
+                if (!makeChild2(Level,HiLevel)) {
+                    if (!makeChild3B(Level,HiLevel)) {
+                        if (!makeChild3A(Level,HiLevel)) {
+                            if (!makeChild4(Level,HiLevel)) {
+                                makeChild5(Level,HiLevel);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (Prefix!=null) {
+            String FN=("C:\\Tmp\\"+Prefix+"_"+Level+"_beforeSort.txt");
+            Verify.WriteStringToText(FN, Verify.ListWorldToString(Child, true, true, true));
+        }
+        Child.sort(CM);
+        return Child;
+    }
+    public boolean makeChild0(int Level,int HiLevel) {
+        int i,j;
+        for (i=1; i<=8; i++) {
+            for (j=1; j<=8; j++) {
+                if (i!=j) {
+                    //Problem.DebugProblem= this.P;
+                    //Console.WriteLine("This\n"+this.toString());
+                    WorldExt that=this.copy();
+                    if (!ChildRoutine(that.MOVELINE(i, j),that,Level,HiLevel)) {
+                        //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in MOVELINE");
+                        //System.out.println("That\n"+ that.toString());
+                        continue;
+                    }else
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean makeChild1(int Level, int HiLevel) { //CONNECT(8,8)
+        for (int i=1; i<=8; i++) {
+            for (int j=1; j<=8; j++) {
+                if (i!=j) {
+                    Card upper=this.P.Peek(i);
+                    Card lower=this.P.Peek(j);
+                    if (upper!=null && lower!=null &&
+                        upper.Suit!=CardSuit.ERR &&
+                        lower.Suit!=CardSuit.ERR) {
+                        if (Problem.Rule(upper, lower)) {
+                            WorldExt that=this.copy();
+                            if (!ChildRoutine(that.CONNECT(upper, lower),that,Level,HiLevel)) {
+                                //System.out.println("That\n"+that.toString());
+                                //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in Connect(8,8)");
+                                continue;
+                            }else {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean makeChild2()
     
 }
