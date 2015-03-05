@@ -158,6 +158,138 @@ public class WorldExt extends World{
         }
         return false;
     }
-    public boolean makeChild2()
+    public boolean makeChild2(int Level, int HiLevel) { //CONNECT(Cell,8)+ DOWN(Cell)
+        Vector<Card> B=Gamer.L1b(this);
+        for(Card lower:B) {
+            for (int j=1; j<=8; j++) {
+                Card upper=P.Peek(j);
+                if (upper!=null) {
+                    if (Problem.Rule(upper,lower)) {
+                        //Problem.DebugProblem=this.P;
+                        WorldExt that=this.copy();
+                        System.out.println("This\n"+ this.toString());
+                        if (!ChildRoutine(that.CONNECT(upper, lower),that,Level,HiLevel)) {
+                            //System.out.println("That\n"+that.toString());
+                            //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in Connect(Cell,8)");
+                            continue;
+                        }else
+                            return true;
+                    }else {
+                        //Problem.DebugProblem=this.P;
+                        //Console.WriteLine("This\n"+this.toString());
+                        WorldExt that=this.copy();
+                        if (!ChildRoutine(that.DOWN(lower),that,Level,HiLevel)) {
+                            //System.out.println("That\n"+ that.toString());
+                            //Gamer.assert(this.P.Equas(Problem.DebugProblem),"Error in Down(L1b)");
+                            continue;
+                        }else
+                            return true;
+                    }
+                }
+            }
+       }
+       return false;
+    }
+    public boolean makeChild3B(int Level,int HiLevel) {  //FINISH
+        Vector<Card> B=Gamer.L1b(this);
+        for (Card elem:B) {
+            if (F.Needed(elem)) {
+                //Problem.DebugProblem= this.P;
+                //System.out.println("This\n"+ this.toString());
+                WorldExt that=this.copy();
+                if (!ChildRoutine(that.FINISH(elem),that,Level,HiLevel)) {
+                    //System.out.println("That\n"+that.toString());
+                    //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in FINISH");
+                    continue;
+                }else
+                    return true;
+            }
+        }
+        return false;
+    }
+    public boolean makeChild3A(int Level,int HiLevel) { //FINISH
+        Vector<Card> A= Gamer.L1a(this);
+        for(Card elem: A) {
+            if (F.Needed(elem)) {
+                //Problem.DebugProblem= this.P;
+                //System.out.println("This\n"+ this.toString());
+                WorldExt that=this.copy();
+                if (!ChildRoutine(that.FINISH(elem),that,Level,HiLevel)) {
+                    //System.out.println("That\n"+that.toString());
+                    //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in FINISH");
+                    continue;
+                }else
+                    return true;    
+            }
+        }
+        return false;
+    }
+    public boolean makeChild4(int Level, int HiLevel){  //DOWN(L1a)
+        int dstLine=P.FirstBlankLine();
+        if (dstLine>0) {
+            Vector<Card> A=Gamer.L1a(this);
+            for(Card elem:A) {
+                //Problem.DebugProblem= this.P;
+                //System.out.println("This\n"+this.toString());
+                WorldExt that=this.copy();
+                if (!ChildRoutine(that.DOWN(elem),that,Level,HiLevel)) {
+                    //System.out.println("That\n"+that.toString());
+                    //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in Down(L1a)");
+                    continue;
+                }else
+                    return true;                
+            }
+        }
+        return false;
+    }
+    public boolean POP_N(int Line,int N) {
+        Problem POP_BeforeChange; // =P.copy();
+        Vector<Integer> POP_BeforeHistory; //=realloc_History();
+        //Vector<Problem> POP_BeforeAncestorP; //=realloc_AncestorP();
+        int av=P.Available();
+        int line_card_num=P.GetNowMaxPos(Line);
+        if (N>line_card_num || line_card_num==0)
+            return false;
+        else        {
+            int n_action=Math.min(N, line_card_num);
+            if (n_action <=av) {
+                POP_BeforeChange=P.copy();
+                POP_BeforeHistory=realloc_History();
+                for (int X=0; x< n_action; X++) {
+                    Card that=this.P.Peek(Line);
+                    if (!this.POP(that)) {
+                        ResumeWorld(POP_BeforeChange,POP_BeforeHistory);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean makeChild5(int Level,int HiLevel) {  //POP_N(i,t)
+        for (int i=1; i<=8; i++) {
+            int sz= P.GetNowMaxPos(i);
+            for (int t=1; t<=sz; t++) {
+                if (t<= this.P.Available()){
+                    //Problem.DebugPrblem=this.P;
+                    //System.out.println("This\n"+this.toString());
+                    WorldExt that=this.copy();
+                    if (!ChildRoutine(that.POP_N(i,t),that,Level,HiLevel)) {
+                        //System.out.println("That\n"+that.toString());
+                        //Gamer.assert(this.P.Equals(Probelm.DebugProblem),"Error in POP(i,t)");
+                        continue;
+                    }else
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+    /*
+    public static WorldExt2 ToWorldExt2(WorldExt inn) {
+        return new WorldExt2(inn.P.copy(), inn.realloc_History());
+    }
+    */
     
 }
