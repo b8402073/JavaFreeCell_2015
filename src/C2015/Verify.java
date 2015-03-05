@@ -131,7 +131,7 @@ public class Verify {
             for (int i=0; i<sz; i++) {
                 ret.append("<<"+i+">> Total Count="+sz+"\r\n");
                 if (ShowCardNumAndAV) {
-                    ret.append("CardNum="+inn.get(i).P.CardNum()+"  AV="+ Gamer.Total_Obstruction_AV(inn.get(i))+" Tail="+ Gamer.Tail(inn.get(i).History)+"\r\n");
+                    ret.append("CardNum="+inn.get(i).P.CardNum()+"  AV="+ Gamer.Total_Obstruction_AV(inn.get(i))+" Tail="+ SHistory.Tail(inn.get(i).History)+"\r\n");
                 }
                 ret.append(inn.get(i).toString(ShowHistory,ShowFinisher)+"\r\n");
             }

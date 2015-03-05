@@ -255,7 +255,7 @@ public class WorldExt extends World{
             if (n_action <=av) {
                 POP_BeforeChange=P.copy();
                 POP_BeforeHistory=realloc_History();
-                for (int X=0; x< n_action; X++) {
+                for (int X=0; X< n_action; X++) {
                     Card that=this.P.Peek(Line);
                     if (!this.POP(that)) {
                         ResumeWorld(POP_BeforeChange,POP_BeforeHistory);
