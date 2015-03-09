@@ -51,7 +51,7 @@ class CardNum_TotalAV<T extends World> implements Comparator<T> {
 }
 public class WorldExt extends World{
     public Vector<WorldExt> Child;
-    //public static U<WorldExt> Universe=new U<WorldExt>();
+    public static U<WorldExt> InstanceU=new U<WorldExt>();
     public static Comparator<WorldExt> CM=new CardNum_TotalAV<WorldExt>();
     public WorldExt(Problem PP) {
         super(PP,new Vector<Integer>());
@@ -78,8 +78,8 @@ public class WorldExt extends World{
                 }else if (Level>=HiLevel) {
                     Child.add(that);
                     return false;
-                }else if (!U<WorldExt>.Exist(that)) {
-                    U<WorldExt>.Add(that);
+                }else if (!U.Exist(that)) {   //C#:(!U<WorldExt>.Exist(that))
+                    U.Add(that);            //C#:U<WorldExt>.Add(that);
                     Child.add(that);
                     return false;
                 }else {  //如果Universe contain that
