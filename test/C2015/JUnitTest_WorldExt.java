@@ -5,8 +5,8 @@
  */
 package C2015;
 
+import java.util.Vector;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -18,10 +18,13 @@ public class JUnitTest_WorldExt {
     }
 
     @Test
-    public void testSomeMethod() {
+    public void testMakeChild0() {
         SHistory.Create();
         WorldExt Example= new WorldExt(Gamer.EXAMPLE_PROBLEM());        
         System.out.println(Example);
+        Example.Child=new Vector<WorldExt>();
+        Example.makeChild0(0, 100);
+        
     }
     
 }

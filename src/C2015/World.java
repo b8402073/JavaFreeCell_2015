@@ -84,14 +84,16 @@ public class World {
               if (hand.size()>0) {
                     boolean flag; 
                     Card upper=P.Peek(dstLine);
-                    //for (Card elem: hand) {                    
+                    for (Card elem: hand) {
+                        P.Fetch(srcLine);
+                    }
                     for (int i=hand.size()-1; i>=0; i--) {
-                        Card elem=hand.get(i);
+                        Card elem=hand.get(i);                        
                         flag=Problem.Rule(upper, elem) && P.Put(elem, dstLine);
                         if (!flag) {
-                                ResumeWorld(ML_BeforeChange,ML_BeforeHistory);
-                                return false;
-                        }
+                            ResumeWorld(ML_BeforeChange,ML_BeforeHistory);
+                            return false;
+                        }                        
                         upper=elem;
                     }
                     P.normarr=null; 

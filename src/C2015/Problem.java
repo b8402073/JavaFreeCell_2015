@@ -480,6 +480,26 @@ public class Problem {
 		}
 		return ret.toString();
 	}
+       public String toString(int d) {
+           StringBuffer ret=new StringBuffer();
+           if (d==9) {
+              ret.append("\"");
+                for (int i=0; i<MB.size()-1; i++) {
+                    ret.append(MB.get(i).toString(0)+",");
+                }
+                ret.append(MB.get(MB.size()-1).toString(0)+"#");
+                ret.append("\"\n");                  
+                for (int Line=1; Line<=8; Line++) {
+                    ret.append("\"");  
+                    for (int i=0; i< GetNowMaxPos(Line)-1; i++) {
+                        ret.append(cardarr[Line-1][i].toString(0)+",");
+                    }                    
+                    ret.append(cardarr[Line-1][GetNowMaxPos(Line)-1].toString(0)+"#");
+                    ret.append("\"\n");                  
+                }
+           }
+           return ret.toString();
+       }
 	public void Print() { System.out.println(toString()); }
 	public static boolean CompareCardArr(Card[][] thes, Card[][] that) {
         for (int i = 0; i < 8; i++)  {
