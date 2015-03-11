@@ -172,7 +172,7 @@ public class WorldExt extends World{
                     if (Problem.Rule(upper,lower)) {
                         //Problem.DebugProblem=this.P;
                         WorldExt that=this.copy();
-                        System.out.println("This\n"+ this.toString());
+                        //System.out.println("This\n"+ this.toString());
                         if (!ChildRoutine(that.CONNECT(upper, lower),that,Level,HiLevel)) {
                             //System.out.println("That\n"+that.toString());
                             //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in Connect(Cell,8)");
