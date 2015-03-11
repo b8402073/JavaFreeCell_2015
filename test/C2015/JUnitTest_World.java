@@ -5,7 +5,7 @@ package C2015;
  * and open the template in the editor.
  */
 
-import C2015.*;
+import java.util.Vector;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -122,9 +122,24 @@ public class JUnitTest_World {
         }catch(Exception e) {
             System.out.println(e.toString());
             assertEquals(true,false);
-        }
-        
+        }        
     }
+    @Test
+    public void TestMoveLineFromZeroLine() {
+        try {
+            Problem P=World.SynthesizeProblemFromNineStrings("5C,7S,12S,13C#",  //Buffer Card
+                    //After these Lines are Array Cards
+                    "13H,12C,11H,10C,9H,8S,7D#", "13S#", "2H,6D,5D,11D,2C,8C,9D#", "8H,13D,5H,4C,3D#","10S,7H,3H,11S,6C,10D,9S#", "12D,11C,10H,9C,8D,7C#", "12H,4H,2D,6S,4S,6H,5S,4D,3C#","#");
+            World test=new World(P);            
+            //System.out.println(test.MOVELINE(8, 1));
+            assertEquals(test.MOVELINE(8, 1),false);
+            
+        }catch(Exception e) {
+            System.out.println(e.toString());
+            fail("Error");
+        }
+    }
+    
     /*
     @Test    
     public void TestWorld()     {

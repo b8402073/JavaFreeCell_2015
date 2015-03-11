@@ -115,21 +115,26 @@ public class WorldExt extends World{
         return Child;
     }
     public boolean makeChild0(int Level,int HiLevel) {
-        int i,j;
+        int i=1,j=1;
+        try {
         for (i=1; i<=8; i++) {
             for (j=1; j<=8; j++) {
                 if (i!=j) {
                     //Problem.DebugProblem= this.P;
                     //Console.WriteLine("This\n"+this.toString());
-                    WorldExt that=this.copy();
+                    WorldExt that=this.copy();                   
                     if (!ChildRoutine(that.MOVELINE(i, j),that,Level,HiLevel)) {
                         //Gamer.assert(this.P.Equals(Problem.DebugProblem),"Error in MOVELINE");
                         //System.out.println("That\n"+ that.toString());
                         continue;
                     }else
-                        return true;
+                        return true;                   
                 }
             }
+        }
+        }catch(Exception ex) {
+            System.out.println("i="+i+"   j="+j);
+            ex.printStackTrace();
         }
         return false;
     }

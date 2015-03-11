@@ -76,12 +76,13 @@ public class World {
 		Card dstCard=P.Peek(dstLine);
 		if (dstCard!=null) {
 			hand=Gamer.GetDragonDestNotNull(P,srcLine,dstCard);
-			Insert=SHistory.MoveLine_ToNum(dstCard, P.Peek(srcLine));
+//			Insert=SHistory.MoveLine_ToNum(dstCard, P.Peek(srcLine));  移到下面
 		}else {
 			hand=Gamer.GetDragonDestIsNull(P,srcLine);
-			Insert=SHistory.MoveLine_ToNum(null, P.Peek(srcLine));
+//			Insert=SHistory.MoveLine_ToNum(null, P.Peek(srcLine));  移到下面
 		}
               if (hand.size()>0) {
+                    Insert=SHistory.MoveLine_ToNum(dstCard, P.Peek(srcLine));
                     boolean flag; 
                     Card upper=P.Peek(dstLine);
                     for (Card elem: hand) {

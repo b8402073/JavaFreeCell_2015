@@ -25,45 +25,49 @@ public class Gamer {
 	}
 	public static Vector<Card> GetDragonDestNotNull(Problem P,int srcLine,Card cut) {
 		Vector<Card> ret= GetDragon(P,srcLine);
-		int delta= ret.size() - P.Available() -1;
-		//step1 依照 P.Available()來減少抓牌的數目
-		if (delta>0) {
-			for (int i=0; i<delta; i++) {
-				ret.removeElementAt(ret.size()-1);
-			}
-		}
-		//step2 依照Cut這張牌來減少抓牌數目
-		if (cut!=null) {
-			int sz= ret.size();
-			boolean Math_Rule=false;
-			Vector<Card> delete_me=new Vector<Card>();
-			for (int i=0; i<sz; i++) {
-				Card hand=ret.get(i);
-				if (Problem.Rule(cut, hand)) {
-					Math_Rule=true;
-					i++;
-					while(i<sz) {
-						hand=ret.get(i);
-						delete_me.add(hand);
-						i++;
-					}
-					for (Card tmp:delete_me) {
-						ret.remove(tmp);
-					}
-				}
-			}
-			if (Math_Rule==false)
-				ret.clear();
-		}
+              if (ret.size()>0) {
+                    int delta= ret.size() - P.Available() -1;
+                    //step1 依照 P.Available()來減少抓牌的數目                
+                    if (delta>0) {
+                            for (int i=0; i<delta; i++) {
+                                    ret.removeElementAt(ret.size()-1);
+                            }
+                    }
+                    //step2 依照Cut這張牌來減少抓牌數目
+                    if (cut!=null) {
+                            int sz= ret.size();
+                            boolean Math_Rule=false;
+                            Vector<Card> delete_me=new Vector<Card>();
+                            for (int i=0; i<sz; i++) {
+                                    Card hand=ret.get(i);
+                                    if (Problem.Rule(cut, hand)) {
+                                            Math_Rule=true;
+                                            i++;
+                                            while(i<sz) {
+                                                    hand=ret.get(i);
+                                                    delete_me.add(hand);
+                                                    i++;
+                                            }
+                                            for (Card tmp:delete_me) {
+                                                    ret.remove(tmp);
+                                            }
+                                    }
+                            }
+                            if (Math_Rule==false)
+                                    ret.clear();
+                    }
+              }
 		return ret;
 	}
 	public static Vector<Card> GetDragonDestIsNull(Problem P,int srcLine) {
 		Vector<Card> ret= GetDragon(P,srcLine);
-		//最多移動P.Available()張牌
-		int Max=P.Available();
-		while(ret.size() > Max) {
-			ret.removeElementAt(ret.size()-1);
-		}
+              if (ret.size()>0) {
+                    //最多移動P.Available()張牌
+                    int Max=P.Available();
+                    while(ret.size() > Max) {
+                            ret.removeElementAt(ret.size()-1);
+                    }
+              }
 		return ret;
 	}
     public static int Finisher_Num(Card inn,Finisher that) {

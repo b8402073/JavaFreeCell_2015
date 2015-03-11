@@ -66,7 +66,7 @@ public class U<T extends World>  {
     }
     public static void clear() {
         for (int i=0; i<22; i++) {
-            for (int j=0; j<22; j++) {
+            for (int j=0; j<i; j++) {
                 for (int k=0; k<5; k++) {
                     Data[i][j][k].clear();
                 }

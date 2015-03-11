@@ -14,23 +14,14 @@ public class Main {
 
   
     public static void main(String[] args) {
+        
         SHistory.Create();
-        WorldExt W0=new WorldExt(Gamer.EXAMPLE_PROBLEM());         
-        System.out.println("W0:\n"+W0.toString());
-        
-        System.out.println(W0.P.toString(9));
-        //System.out.println("MOVELINE(1,3)="+W0.MOVELINE(1,3));
-        
-        //System.out.println("W After (1,3)");
-        //System.out.println(W0.toString());
-        
-        W0.Child=new Vector<WorldExt>();
-        W0.makeChild0(0, 100);
-        System.out.println("------------------------------------------");
-        System.out.println("Child[0]:");
-        System.out.println(W0.Child.get(0));
-        System.out.println("==========================================");
-        System.out.println(Verify.ListWorldToString(W0.Child, true, true, true));
+        WorldExt that=new WorldExt(Gamer.EXAMPLE_PROBLEM());
+        Sage S1=new Sage(that);
+        if (S1.Run1(false)) {
+            System.out.println(Sage.Result);
+        }
+  
         
         
     }

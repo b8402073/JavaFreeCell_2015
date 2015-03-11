@@ -83,6 +83,8 @@ public class SHistory {
             {
                 CardDeck.Create();
             }
+            //WorldExt.InstanceU=new U<WorldExt>();
+            //WorldExt.CM= new CardNum_TotalAV<WorldExt>();
             for (int i=0; i<52; i++) {
             	for (int j=0; j<i; j++) {
             		if (i>j) {
