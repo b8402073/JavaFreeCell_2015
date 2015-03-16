@@ -49,7 +49,8 @@ class CardNum_TotalAV<T extends World> implements Comparator<T> {
         return false;
     }
 }
-public class WorldExt extends World{
+public class WorldExt extends World{   //This is a Very Bad idea; It's impossible
+//public class WorldExt extends DebugWorld{ //This is a Very Bad idea; It's impossible
     public Vector<WorldExt> Child;
     public static U<WorldExt> InstanceU=new U<WorldExt>();
     public static Comparator<WorldExt> CM=new CardNum_TotalAV<WorldExt>();
@@ -61,7 +62,7 @@ public class WorldExt extends World{
         super(PP,HH); 
         Child=null;
     }
-    public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH) {
+    public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH) {       
         super(PP,FF,HH);
         Child=null;
     }

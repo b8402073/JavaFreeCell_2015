@@ -69,8 +69,7 @@ public class World {
 		P=PP; History=HH;
 	}
 	public boolean MOVELINE(int srcLine,int dstLine) {
-		Problem ML_BeforeChange=P.copy();
-		Vector<Integer> ML_BeforeHistory=realloc_History();
+              ReserveWorld();
 		Vector<Card> hand;
 		Integer Insert;
 		Card dstCard=P.Peek(dstLine);
@@ -92,7 +91,7 @@ public class World {
                         Card elem=hand.get(i);                        
                         flag=Problem.Rule(upper, elem) && P.Put(elem, dstLine);
                         if (!flag) {
-                            ResumeWorld(ML_BeforeChange,ML_BeforeHistory);
+                        ResumeWorld();
                             return false;
                         }                        
                         upper=elem;

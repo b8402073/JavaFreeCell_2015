@@ -16,13 +16,15 @@ public class Main {
     public static void main(String[] args) {
         
         SHistory.Create();
+/*        
         WorldExt that=new WorldExt(Gamer.EXAMPLE_PROBLEM());
         System.out.println(that);
         Sage S1=new Sage(that);
         if (S1.Run1(false)) {
             System.out.println(Sage.Result);
         }
-  
+*/
+        
         
         
     }

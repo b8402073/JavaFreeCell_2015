@@ -12,6 +12,7 @@ import java.util.Vector;
  * @author easterday
  */
 public class DebugWorld extends World{
+    private final Problem MyFirstProblem;
     public Vector<Problem> AncestorP;
     public Vector<Problem> realloc_AncestorP() {
         Vector<Problem> ret=new Vector<Problem>();
@@ -20,15 +21,22 @@ public class DebugWorld extends World{
         }
         return ret;
     }
+    public DebugWorld(Problem PP,Vector<Integer> HH,Vector<Problem> AncP,Problem FirstP) {
+        super(PP,HH);
+        AncestorP=AncP;
+        MyFirstProblem=FirstP;
+    }
     public DebugWorld(Problem PP, Vector<Integer> HH,Vector<Problem> AncP) {
         super(PP,HH);
+        MyFirstProblem=PP.copy();
         AncestorP=AncP;
     }
     public DebugWorld(Problem PP) {
-        this(PP,new Vector<Integer>(), new Vector<Problem>());        
+        this(PP,new Vector<Integer>(), new Vector<Problem>());   
     }
     public DebugWorld(Problem PP,Vector<Integer> HH) {
         super();
+        MyFirstProblem=PP.copy();
         try {
             P=SHistory.MakeProblem(new World(PP.copy()), HH);
         }catch(Exception ex) {
@@ -40,10 +48,19 @@ public class DebugWorld extends World{
     }
     public DebugWorld(int i) {
         super(i);
+        MyFirstProblem= P.copy();
         AncestorP=new Vector<Problem>();
     }
+    public DebugWorld(Problem PP,Finisher FF,Vector<Integer> HH) {
+        this(PP,HH);
+        Finisher checkF=P.Synthesize_Finisher();
+        if (!checkF.Equals(FF)) {
+            System.out.println("Corruptive Problem");
+            System.exit(101);
+        }
+    }
     public DebugWorld copy() {
-        return new DebugWorld(P.copy(), realloc_History(),realloc_AncestorP());
+        return new DebugWorld(P.copy(), realloc_History(),realloc_AncestorP(),MyFirstProblem);
     }
     private static Vector<Problem> bfChangeAncestorP=null;
     protected void ResumeWorld() {
@@ -56,23 +73,16 @@ public class DebugWorld extends World{
     }
     @Override
     public boolean MOVELINE(int srcLine,int dstLine) {
-        Vector<Problem> ML_BeforeAncestorP = realloc_AncestorP();
         boolean ret= super.MOVELINE(srcLine, dstLine);
-        if (!ret){
-            AncestorP= ML_BeforeAncestorP;
-            return false;
-        }
+        if (ret)
+            AncestorP.add(BeforeChange);
         return ret;
     }
     @Override
     public boolean MOVELINE(Card High,Card Low) {
-        Vector<Problem> ML_BeforeAncestorP= realloc_AncestorP();
-        boolean ret= super.MOVELINE(High, Low);
-        if (!ret) {
-            AncestorP= ML_BeforeAncestorP;
-            return false;
-        }
-        return ret;
+		int srcLine= P.QuickWhereIs(Low);
+		int dstLine= P.QuickWhereIs(High);
+		return MOVELINE(srcLine,dstLine);
     }
     @Override
     public boolean CONNECT(Card upper,Card lower) {
@@ -101,6 +111,9 @@ public class DebugWorld extends World{
         if (ret)
             AncestorP.add(BeforeChange);
         return ret;        
+    }
+    public Problem GetMyFirstProblem() {
+        return MyFirstProblem;
     }
     
     
