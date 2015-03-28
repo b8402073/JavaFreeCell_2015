@@ -8,6 +8,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 import java.util.Random;
+import java.lang.Math;
 
 class CPLine implements Comparator<Card[]> {
 	private int size(Card[] inn) {
@@ -186,7 +187,7 @@ public class Problem {
         }
         for (i = 0; i < 52; i++)
         {
-            j = Choose.nextInt() % wLeft;
+            j = Math.abs(Choose.nextInt()) % wLeft;  
             cardarr[i % 8][i / 8] = deck[j];
             wLeft--;
             deck[j] = deck[wLeft];

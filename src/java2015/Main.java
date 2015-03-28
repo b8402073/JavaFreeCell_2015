@@ -16,20 +16,34 @@ public class Main {
     public static void main(String[] args) {
         
         SHistory.Create();
-        
+        /*
         WorldExt that=new WorldExt(Gamer.EXAMPLE_PROBLEM(),true);        
         System.out.println(that);
         
-        System.out.println(that.P.toString(9));
         Sage S1=new Sage(that);
         if (S1.Run1(false)) {
             System.out.println(Sage.Result);
-            for (Integer i: Sage.Result.History) {
-                System.out.print(i+",");
-            }        
-            System.out.println(Sage.Result.Cookie);
+            System.out.println(Sage.Result.Cookie); 
+            try {
+                boolean flag=Verify.Verify_Problem(that.Cookie.GetFirstProblem(), Sage.Result.History, Gamer.COMPLETE_WORLD().P);
+                System.out.println("Verify="+flag);
+            }catch(Exception ex) {
+                ex.printStackTrace();
+            }
         }
-
+        */
+        for (int i=1; i<=10; i++) {
+            WorldExt that=new WorldExt(new Problem(i));
+            Problem P0=that.P.copy();
+            Sage S1=new Sage(that);
+            try {
+                 boolean flag=Verify.Verify_Problem(P0, Sage.Result.History, Gamer.COMPLETE_WORLD().P);
+                 System.out.println("Verify("+i+")="+flag);
+            }catch(Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        
         
         
         

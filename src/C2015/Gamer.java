@@ -403,4 +403,9 @@ public class Gamer {
         else
             return null;            
     }
+    public static World COMPLETE_WORLD() {
+        Problem ret= World.SynthesizeProblemFromNineStrings("#", "#", "#", "#", "#", "#", "#", "#", "#");
+        return new World(ret);
+    }
+    
 }

@@ -37,7 +37,24 @@ public class Verify {
             int that=H.get(i);
             Card CHigh=null, CLow=null, CHand=null;
             CardSuit CLowSuit=CardSuit.ERR;
-            if (that>=2000) {
+            if (that>=10000) {
+                that-=10000;
+                int hi= that/100;
+                int low= that%100;
+                CLow=CardDeck.GetCard(low);
+                if (hi>=0 && low>=0 && hi<52 && low<52)  {
+                    CHigh= CardDeck.GetCard(hi);
+                    if (!root.MOVELINE(CHigh, CLow)) {
+                        System.out.println("Can't MOVELINE("+CHigh.Str+","+CLow.Str+")");
+                        return false;
+                    }
+                }else if (hi==99 && low>=0 && low<52) {
+                    if (!root.MOVELINE(null, CLow)) {
+                        System.out.println("Can't MOVELINE(NULL,"+CLow.Str+")");
+                        return false;
+                    }
+                }
+            }else if (that>=2000) {
                 CHigh=CardDeck.GetCard(that-2000);
                 if (CHigh.IsRed) {
                     CLowSuit=CardSuit.SPADE;
