@@ -326,13 +326,9 @@ public class WorldExt extends World{
     }
     @Override
     public boolean MOVELINE(Card high, Card low) {
-        if (super.MOVELINE(high, low)) {
-            if (Cookie!=null) {
-                Cookie.Add(World.BeforeChange);
-            }
-            return true;
-        }
-        return false;
+        int srcLine=P.QuickWhereIs(low);
+        int dstLine=P.QuickWhereIs(high);
+        return MOVELINE(srcLine,dstLine);
     }
     @Override
     public boolean CONNECT(Card high,Card low) {

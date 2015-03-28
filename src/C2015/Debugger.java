@@ -53,4 +53,5 @@ public class Debugger {
             ret.add(elem);
         return ret;
     }
+    public int size() { return AncestorP.size();}
 }
