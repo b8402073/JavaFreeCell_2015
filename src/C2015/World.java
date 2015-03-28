@@ -75,12 +75,10 @@ public class World {
 		Card dstCard=P.Peek(dstLine);
 		if (dstCard!=null) {
 			hand=Gamer.GetDragonDestNotNull(P,srcLine,dstCard);
-//			Insert=SHistory.MoveLine_ToNum(dstCard, P.Peek(srcLine));  移到下面
 		}else {
 			hand=Gamer.GetDragonDestIsNull(P,srcLine);
-//			Insert=SHistory.MoveLine_ToNum(null, P.Peek(srcLine));  移到下面
 		}
-              if (hand.size()>0) {
+              if (hand.size()>1) { //if GetDragon() Get More than one card, We will do follow steps
                     Insert=SHistory.MoveLine_ToNum(dstCard, P.Peek(srcLine));
                     boolean flag; 
                     Card upper=P.Peek(dstLine);
@@ -104,8 +102,14 @@ public class World {
 	}
 	public boolean MOVELINE(Card High,Card Low) {
 		int srcLine= P.QuickWhereIs(Low);
-		int dstLine= P.QuickWhereIs(High);
-		return MOVELINE(srcLine,dstLine);
+		int dstLine;
+              if (High!=null)
+                  dstLine = P.QuickWhereIs(High);
+              else
+                  dstLine = this.P.FirstBlankLine();
+              if (dstLine>0 && srcLine>0)
+                    return MOVELINE(srcLine,dstLine);
+              return false;
 	}
 	public boolean Equals(World that) {
 		return P.Equals(that.P);

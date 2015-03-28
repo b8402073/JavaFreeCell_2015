@@ -54,4 +54,12 @@ public class Debugger {
         return ret;
     }
     public int size() { return AncestorP.size();}
+    public String toString() {
+        StringBuffer ret=new StringBuffer();
+        for (int i=0; i<AncestorP.size(); i++) {
+            ret.append("<<"+i+">>\n");
+            ret.append(new World(AncestorP.get(i)).toString());            
+        }
+        return ret.toString();
+    }
 }

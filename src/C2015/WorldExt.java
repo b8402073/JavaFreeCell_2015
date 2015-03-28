@@ -54,32 +54,24 @@ public class WorldExt extends World{
     public Vector<WorldExt> Child;
     public static U<WorldExt> InstanceU=new U<WorldExt>();
     public static Comparator<WorldExt> CM=new CardNum_TotalAV<WorldExt>();
-    protected Debugger  Cookie;
-    protected void CoockieRoutine(Debugger thatCookie) {
-        if (Cookie!=null)
-            Cookie=thatCookie.copy();        
-        else
-            Cookie=null;        
-    }
+    public Debugger  Cookie=null;
     public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH,Debugger thatCookie) {
         super(PP,FF,HH);
-        Child=null;
-        CoockieRoutine(Cookie);
+        if (thatCookie!=null)
+            Cookie=thatCookie.copy();                              
+        Child=null;        
     }
     public WorldExt(Problem PP) {
        super(PP,new Vector<Integer>());
        Child=null;
-       CoockieRoutine(Cookie);
     }
     public WorldExt(Problem PP,Vector<Integer> HH) {
         super(PP,HH); 
         Child=null;
-        CoockieRoutine(Cookie);
     }
     public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH) {       
         super(PP,FF,HH);
        Child=null;
-       CoockieRoutine(Cookie);
     }
     public WorldExt(Problem PP,boolean HasDebugger) {
        super(PP,new Vector<Integer>());
@@ -327,8 +319,14 @@ public class WorldExt extends World{
     @Override
     public boolean MOVELINE(Card high, Card low) {
         int srcLine=P.QuickWhereIs(low);
-        int dstLine=P.QuickWhereIs(high);
-        return MOVELINE(srcLine,dstLine);
+        int dstLine;
+        if (high!=null)
+            dstLine=P.QuickWhereIs(high);
+        else
+            dstLine=P.FirstBlankLine();
+        if (dstLine>0)
+            return MOVELINE(srcLine,dstLine);
+        return false;
     }
     @Override
     public boolean CONNECT(Card high,Card low) {
@@ -343,7 +341,9 @@ public class WorldExt extends World{
     @Override 
     public boolean FINISH(Card that){
         if (super.FINISH(that)) {
-            Cookie.Add(World.BeforeChange);
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
             return true;
         }
         return false;

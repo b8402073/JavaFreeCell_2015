@@ -17,11 +17,17 @@ public class Main {
         
         SHistory.Create();
         
-        WorldExt that=new WorldExt(Gamer.EXAMPLE_PROBLEM(),true);
+        WorldExt that=new WorldExt(Gamer.EXAMPLE_PROBLEM(),true);        
         System.out.println(that);
+        
+        System.out.println(that.P.toString(9));
         Sage S1=new Sage(that);
         if (S1.Run1(false)) {
             System.out.println(Sage.Result);
+            for (Integer i: Sage.Result.History) {
+                System.out.print(i+",");
+            }        
+            System.out.println(Sage.Result.Cookie);
         }
 
         
