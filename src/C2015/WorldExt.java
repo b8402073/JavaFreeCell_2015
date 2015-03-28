@@ -49,25 +49,47 @@ class CardNum_TotalAV<T extends World> implements Comparator<T> {
         return false;
     }
 }
-public class WorldExt extends World{   //This is a Very Bad idea; It's impossible
+public class WorldExt extends World{  
 //public class WorldExt extends DebugWorld{ //This is a Very Bad idea; It's impossible
     public Vector<WorldExt> Child;
     public static U<WorldExt> InstanceU=new U<WorldExt>();
     public static Comparator<WorldExt> CM=new CardNum_TotalAV<WorldExt>();
+    protected Debugger  Cookie;
+    protected void CoockieRoutine(Debugger thatCookie) {
+        if (Cookie!=null)
+            Cookie=thatCookie.copy();        
+        else
+            Cookie=null;        
+    }
+    public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH,Debugger thatCookie) {
+        super(PP,FF,HH);
+        Child=null;
+        CoockieRoutine(Cookie);
+    }
     public WorldExt(Problem PP) {
-        super(PP,new Vector<Integer>());
-        Child=null;                
+       super(PP,new Vector<Integer>());
+       Child=null;
+       CoockieRoutine(Cookie);
     }
     public WorldExt(Problem PP,Vector<Integer> HH) {
         super(PP,HH); 
         Child=null;
+        CoockieRoutine(Cookie);
     }
     public WorldExt(Problem PP,Finisher FF,Vector<Integer> HH) {       
         super(PP,FF,HH);
-        Child=null;
+       Child=null;
+       CoockieRoutine(Cookie);
+    }
+    public WorldExt(Problem PP,boolean HasDebugger) {
+       super(PP,new Vector<Integer>());
+       if (HasDebugger) {
+           Cookie=new Debugger(PP);
+       }
+       Child=null;             
     }
     public WorldExt copy() {
-        return new WorldExt(P.copy(), F.copy(), realloc_History());
+        return new WorldExt(P.copy(), F.copy(), realloc_History(),Cookie);
     }
     public boolean ChildRoutine(boolean flag, WorldExt that, int Level,int HiLevel)    {
         if (flag) {
@@ -292,10 +314,62 @@ public class WorldExt extends World{   //This is a Very Bad idea; It's impossibl
         }
         return false;
     }
-    /*
-    public static WorldExt2 ToWorldExt2(WorldExt inn) {
-        return new WorldExt2(inn.P.copy(), inn.realloc_History());
+    @Override
+    public boolean MOVELINE(int srcLine,int dstLine) {
+        if (super.MOVELINE(srcLine, dstLine)) {
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
+            return true;
+        }
+        return false;
     }
-    */
-    
+    @Override
+    public boolean MOVELINE(Card high, Card low) {
+        if (super.MOVELINE(high, low)) {
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean CONNECT(Card high,Card low) {
+        if (super.CONNECT(high, low)) {
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
+            return true;
+        }
+        return false;
+    }
+    @Override 
+    public boolean FINISH(Card that){
+        if (super.FINISH(that)) {
+            Cookie.Add(World.BeforeChange);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean POP(Card that) {
+        if (super.POP(that)) {
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean DOWN(Card that) {
+        if (super.DOWN(that)) {
+            if (Cookie!=null) {
+                Cookie.Add(World.BeforeChange);
+            }
+            return true;
+        }
+        return false;
+    }    
 }
