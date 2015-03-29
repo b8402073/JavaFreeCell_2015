@@ -5,7 +5,9 @@
  */
 package java2015;
 import C2015.*;
-import java.util.Vector;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 /**
  *
  * @author easterday
@@ -32,21 +34,48 @@ public class Main {
             }
         }
         */
+        World W0=Gamer.COMPLETE_WORLD();
+        byte[] d=W0.P.getBytes();
+        for (byte k:d) {
+            System.out.print(""+k+",");
+        }
+        System.out.println();
+        for (byte k:d) {
+            if (k<0) {
+                System.out.println(k*(-1));
+            }else
+                System.out.print(CardDeck.GetCard(k).Str+",");
+        }
+        
+        WorldExt that0=new WorldExt(Gamer.EXAMPLE_PROBLEM());
+        System.out.println(that0.P);
+        System.out.println(new Date());
+        byte[] data=that0.P.getBytes();
+        for (byte k:data) {
+            System.out.print(""+k+",");
+        }
+        System.out.println();
+        for (byte k:data) {
+            if (k<0) {
+                System.out.println(k*(-1));
+            }else
+                System.out.print(CardDeck.GetCard(k).Str+",");
+        }
+        System.out.println(SHAClass.stringSHA(data));
+        System.out.println(new Date());
         for (int i=1; i<=10; i++) {
             WorldExt that=new WorldExt(new Problem(i));
             Problem P0=that.P.copy();
             Sage S1=new Sage(that);
-            try {
-                 boolean flag=Verify.Verify_Problem(P0, Sage.Result.History, Gamer.COMPLETE_WORLD().P);
-                 System.out.println("Verify("+i+")="+flag);
-            }catch(Exception ex) {
-                ex.printStackTrace();
+            if (S1.Run1(false)) {
+                try {
+                     boolean flag=Verify.Verify_Problem(P0, Sage.Result.History, Gamer.COMPLETE_WORLD().P);
+                     System.out.println("Verify("+i+")="+flag);
+                }catch(Exception ex) {
+                    ex.printStackTrace();
+                }                
             }
+
         }
-        
-        
-        
-        
     }
-    
 }

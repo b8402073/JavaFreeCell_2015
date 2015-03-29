@@ -94,7 +94,8 @@ public class World {
                         }                        
                         upper=elem;
                     }
-                    P.normarr=null; 
+                    P.normarr=null;
+                    P.SHA=null;
                     History.add(Insert);
                     return true;                  
               }
@@ -134,6 +135,7 @@ public class World {
 					Integer Insert= SHistory.Connect_ToNum(upper, lower);
 					History.add(Insert);
 					P.normarr=null;
+                                   P.SHA=null;
 					return true;
 				}else {
 					if (srcLine==0)
@@ -165,6 +167,7 @@ public class World {
 				Integer Insert=SHistory.Finish_ToNum(hand);
 				History.add(Insert);
 				P.normarr=null;
+                                P.SHA=null;
 				return true;
 			}
 		}
@@ -183,6 +186,7 @@ public class World {
 					Integer Insert=SHistory.Pop_ToNum(that);
 					History.add(Insert);
 					P.normarr=null;
+                                        P.SHA=null;
 					return true;
 				}
 			}
@@ -196,6 +200,7 @@ public class World {
 						Integer Insert=SHistory.Down_ToNum(that);
 						History.add(Insert);
 						P.normarr=null;
+                                                P.SHA=null;
 						return true;
 					}
 				}					
@@ -220,6 +225,7 @@ public class World {
 				Integer Insert=SHistory.Down_ToNum(that);
 				History.add(Insert);
 				P.normarr=null;
+                                P.SHA=null;
 				return true;
 			}
 		}

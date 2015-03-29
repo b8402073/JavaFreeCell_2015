@@ -11,7 +11,7 @@ import java.util.Random;
 import java.lang.Math;
 
 class CPLine implements Comparator<Card[]> {
-	private int size(Card[] inn) {
+    static public int size(Card[] inn) {
 		int ret=0;
 		while(inn[ret]!=null && ret<21) {
 			++ret;
@@ -128,6 +128,7 @@ class CPLine implements Comparator<Card[]> {
 public class Problem {
 	private Card[][] cardarr;
 	public  Card[][] normarr=null;
+       public  String SHA=null;
 	private Byte[]   NowMaxPos;
 	private Buffer   MB;
 	public  static Comparator<Card[]> cp=new CPLine();
@@ -527,7 +528,7 @@ public class Problem {
         }
         return (MB.Equals(that.MB) && CompareCardArr(this.cardarr, that.cardarr));
     }
-    public boolean ValueEquals(Problem that)    {
+    public boolean ValueEqualsOld(Problem that)    {
         if (!MB.Equals(that.MB))
             return false;
         Card[][] P1 = GetNormarr();
@@ -543,6 +544,13 @@ public class Problem {
             P2 = that.GetNormarr();
         }
         return Problem.CompareCardArr(P1, P2);
+    }
+    public boolean ValueEquals(Problem that) {
+        if (this.SHA==null)
+            this.SHA();
+        if (that.SHA==null)
+            that.SHA();
+        return this.SHA.equals(that.SHA);
     }
     public void Normalize() {
     	Vector<Card[]> tmp=new Vector<Card[]>();
@@ -565,6 +573,7 @@ public class Problem {
     	}
     	return ret;
     }
+    
     private int Synthesize(CardSuit S) {
     	int ret=0;
     	for (int i=1; i<=13; i++) {
@@ -624,5 +633,52 @@ public class Problem {
     		}
     	}
     	return -1;
+    }
+    private Card[] getCol(int col) {
+        int sz= NowMaxPos[col-1];
+        Card[] ret= new Card[sz];
+        for (int i=0; i<sz; i++) {
+            ret[i]=cardarr[col-1][i];   
+        }
+        return ret;
+    }
+    public byte[] getBytes() {
+        //Step0: Add Buffer Card
+        Vector<Byte> retV=new Vector<Byte>();        
+        int c;
+        for (c=0; c< MB.size(); c++) {
+            Integer that= MB.get(c).ID;
+            retV.add(that.byteValue());
+        }
+        //Step1: do Normalization
+        Vector<Card[]> tmp=new Vector<Card[]>();
+        for(int i=1; i<=8; i++) {
+            tmp.add(ColSynthesize(i));
+        }
+        tmp.sort(cp);        
+        for (int L=0;L<8;L++ ) {
+            Card[] Line=tmp.get(L);
+            Integer LineNum=0;
+            int sz=CPLine.size(Line);
+            if (sz>0) {
+                LineNum=  (sz)*(-1);
+                retV.add(LineNum.byteValue());
+            }else {  //sz==0
+                LineNum=(-100);
+                retV.add(LineNum.byteValue());
+            }
+            for (int i=0; i<sz; i++) {
+                Integer that=Line[i].ID;
+                retV.add(that.byteValue());
+            }
+        }
+        byte[] ret=new byte[retV.size()];
+        for (int i=0; i<ret.length; i++) {
+            ret[i]= retV.get(i);
+        }
+        return ret;
+    }
+    public void SHA() {
+        SHA= SHAClass.stringSHA(getBytes());
     }
 }
